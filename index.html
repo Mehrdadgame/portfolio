@@ -83,7 +83,7 @@ html[data-theme="light"]{
    BASE
    ============================================================ */
 *{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;overflow-x:clip;}
 body{
   margin:0;
   background:var(--bg);
@@ -94,7 +94,7 @@ body{
   letter-spacing:.002em;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-  overflow-x:hidden;
+  overflow-x:hidden;overflow-x:clip;
 }
 a{color:inherit;text-decoration:none;}
 img{max-width:100%;display:block;}
@@ -203,10 +203,11 @@ html[data-theme="light"] .theme-toggle .moon{display:block;}
   .navlinks{
     position:fixed;inset:0 0 0 auto;width:min(78vw,320px);flex-direction:column;align-items:flex-start;
     justify-content:center;gap:8px;padding:40px;background:var(--bg-2);
-    border-left:1px solid var(--hairline);transform:translateX(105%);transition:transform .45s var(--ease);
+    border-left:1px solid var(--hairline);transform:translateX(105%);visibility:hidden;
+    transition:transform .45s var(--ease),visibility .45s var(--ease);
     z-index:130;
   }
-  .navlinks.open{transform:translateX(0);}
+  .navlinks.open{transform:translateX(0);visibility:visible;}
   .navlinks a{font-size:18px;width:100%;}
   .menu-toggle{display:grid;}
 }
@@ -541,6 +542,11 @@ html[lang="fa"] .btn svg,html[lang="fa"] .crow .cgo svg{transform:scaleX(-1);}
 /* the LinkedIn value is a Latin handle — keep it LTR inside the RTL row */
 html[lang="fa"] .crow .cv{direction:ltr;text-align:right;}
 html[lang="fa"] .crow.is-static .cv{direction:rtl;}
+/* RTL mobile: nav drawer slides from the left (where the menu button sits in RTL) */
+@media(max-width:880px){
+  html[lang="fa"] .navlinks{inset:0 auto 0 0;border-left:none;border-right:1px solid var(--hairline);transform:translateX(-105%);}
+  html[lang="fa"] .navlinks.open{transform:translateX(0);}
+}
 </style>
 </head>
 <body>
